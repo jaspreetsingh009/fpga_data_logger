@@ -32,7 +32,19 @@ begin
 	         iRSTN  =>  KEY,
 	         iCLK   =>  Clk,
 	         oRST   =>  dly_rst);   
-   
+
+-- PLL Settings:
+--   pll1.clk0_divide_by = 25,
+--   pll1.clk0_duty_cycle = 50,
+--   pll1.clk0_multiply_by = 1,
+--   pll1.clk0_phase_shift = "200000",
+--   pll1.clk1_divide_by = 25,
+--   pll1.clk1_duty_cycle = 50,
+--   pll1.clk1_multiply_by = 1,
+--   pll1.clk1_phase_shift = "166667",
+--   pll1.compensate_clock = "clk0",
+--   pll1.inclk0_input_frequency = 20000,
+		
    u_spipll : entity work.spipll 
       port map (
 	         areset  =>  dly_rst,
