@@ -8,6 +8,7 @@ The project is implemented on a DE0-Nano FPGA Development Board from Terasic. I 
 The GUI is built in Visual Studio 2010 using Visual C#. So, the project is a windows only built at present.
 
 GUI Executable files: https://docs.google.com/file/d/0B8SkMvBLdkB4WmZvZmZaTTQ2enM
+
 GUI Source Code: https://docs.google.com/file/d/0B8SkMvBLdkB4NHc3cWx4cFVaUG8
 
 for any queries or suggestions, feel free to contact me at jaspreetsingh009@gmail.com
