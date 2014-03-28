@@ -39,7 +39,7 @@ Datas(5)  <= x"41";
 Datas(6)  <= x"54";
 Datas(7)  <= x"41";
 Datas(8)  <= x"3A";
-Datas(9) <= x"20";
+Datas(9)  <= x"20";
 
 TempVal   <= (3300 * (to_integer(UNSIGNED(LCD_Data))))/4095;
 TempVal_1 <= (TempVal) mod 10;
