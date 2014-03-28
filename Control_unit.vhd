@@ -72,24 +72,23 @@ begin
   if(rising_edge(Clk)) then
      if(data_acquire = '1') then 
 		 if(datacount < 8) then
-			Datas(4) := Data_EndChar;
-			Datas(3) := STD_LOGIC_VECTOR(to_unsigned(DataOut mod 10, 8) + X"30" ); Dtemp1 := DataOut/10;
-			Datas(2) := STD_LOGIC_VECTOR(to_unsigned(Dtemp1  mod 10, 8) + X"30" ); Dtemp2 := DataOut/100;
-			Datas(1) := STD_LOGIC_VECTOR(to_unsigned(Dtemp2  mod 10, 8) + X"30" ); Dtemp3 := DataOut/1000;
-			Datas(0) := STD_LOGIC_VECTOR(to_unsigned(Dtemp3  mod 10, 8) + X"30" ); 
+		    Datas(4) := Data_EndChar;
+		    Datas(3) := STD_LOGIC_VECTOR(to_unsigned(DataOut mod 10, 8) + X"30" ); Dtemp1 := DataOut/10;
+		    Datas(2) := STD_LOGIC_VECTOR(to_unsigned(Dtemp1  mod 10, 8) + X"30" ); Dtemp2 := DataOut/100;
+		    Datas(1) := STD_LOGIC_VECTOR(to_unsigned(Dtemp2  mod 10, 8) + X"30" ); Dtemp3 := DataOut/1000;
+		    Datas(0) := STD_LOGIC_VECTOR(to_unsigned(Dtemp3  mod 10, 8) + X"30" ); 
 			
 		 elsif(datacount = 8) then
-		   GSDataOut1 <= GSDataOut(7 downto 0);
-		   GSDataOut2 <= to_integer(UNSIGNED(GSDataOut1));
-		   Datas(4) := Data_EndChar_1;
-		   Datas(3) := STD_LOGIC_VECTOR(to_unsigned(GSDataOut2 mod 10, 8) + X"30" ); Dtemp1 := GSDataOut2/10;
-		   Datas(2) := STD_LOGIC_VECTOR(to_unsigned(Dtemp1 mod 10, 8) + X"30" ); Dtemp2 := GSDataOut2/100;
-		   Datas(1) := STD_LOGIC_VECTOR(to_unsigned(Dtemp2 mod 10, 8) + X"30" );
+		    GSDataOut1 <= GSDataOut(7 downto 0);
+		    GSDataOut2 <= to_integer(UNSIGNED(GSDataOut1));
+		    Datas(4) := Data_EndChar_1;
+		    Datas(3) := STD_LOGIC_VECTOR(to_unsigned(GSDataOut2 mod 10, 8) + X"30" ); Dtemp1 := GSDataOut2/10;
+		    Datas(2) := STD_LOGIC_VECTOR(to_unsigned(Dtemp1 mod 10, 8) + X"30" ); Dtemp2 := GSDataOut2/100;
+		    Datas(1) := STD_LOGIC_VECTOR(to_unsigned(Dtemp2 mod 10, 8) + X"30" );
 		
-		   if(GSDataOut(9) = '1') then Datas(0) := X"2D";
-		   else Datas(0) := X"2B";
-		   end if;
-			
+		    if(GSDataOut(9) = '1') then Datas(0) := X"2D";
+		    else Datas(0) := X"2B";
+		    end if;
 		 end if;
 		end if;
 	  if(count = countVal) then Flag <= '1'; count <= 0; TX_Data <= Datas(i); data_acquire <= '0';
