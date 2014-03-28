@@ -193,24 +193,24 @@ begin
                when IDLE =>
                         read_idle_count <= read_idle_count + "000000000000001";    
                         if (high_byte = '1') then
-								   if(sel_axis = 0) then
-										p2s_data(15 DOWNTO 8) <= READ_MODE & X_HB;    
-									elsif(sel_axis = 1) then
-										p2s_data(15 DOWNTO 8) <= READ_MODE & Y_HB; 
-									elsif(sel_axis = 2) then
-										p2s_data(15 DOWNTO 8) <= READ_MODE & Z_HB; 
-									end if;
+			   if(sel_axis = 0) then
+					p2s_data(15 DOWNTO 8) <= READ_MODE & X_HB;    
+				elsif(sel_axis = 1) then
+					p2s_data(15 DOWNTO 8) <= READ_MODE & Y_HB; 
+				elsif(sel_axis = 2) then
+					p2s_data(15 DOWNTO 8) <= READ_MODE & Z_HB; 
+				end if;
                            read_back <= '1';    
                         else
                            if (read_ready = '1') then
                               if(sel_axis = 0) then
-											p2s_data(15 DOWNTO 8) <= READ_MODE & X_LB;    
-										elsif(sel_axis = 1) then
-											p2s_data(15 DOWNTO 8) <= READ_MODE & Y_LB; 
-										elsif(sel_axis = 2) then
-											p2s_data(15 DOWNTO 8) <= READ_MODE & Z_LB; 
-										end if;
-                              read_back <= '1';    
+					p2s_data(15 DOWNTO 8) <= READ_MODE & X_LB;    
+			      elsif(sel_axis = 1) then
+					p2s_data(15 DOWNTO 8) <= READ_MODE & Y_LB; 
+			      elsif(sel_axis = 2) then
+					p2s_data(15 DOWNTO 8) <= READ_MODE & Z_LB; 
+			      end if;
+                           read_back <= '1';    
                            else
                               if (((NOT clear_status_d(3) AND iG_INT2) OR read_idle_count(IDLE_MSB)) = '1') then
                                  p2s_data(15 DOWNTO 8) <= READ_MODE & INT_SOURCE;    
@@ -259,9 +259,9 @@ begin
          read_back_d <= '0';    
          clear_status_d <= "0000";    
       elsif(rising_edge(iSPI_CLK)) then
-          high_byte_d <= high_byte;    
-          read_back_d <= read_back;    
-          clear_status_d <= clear_status_d(2 DOWNTO 0) & clear_status;    
+         high_byte_d <= high_byte;    
+         read_back_d <= read_back;    
+         clear_status_d <= clear_status_d(2 DOWNTO 0) & clear_status;    
       end if;
    end process;
 
