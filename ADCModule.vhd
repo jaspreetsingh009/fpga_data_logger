@@ -3,22 +3,22 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity ADCModule is
-port (Clk   : IN  STD_LOGIC;
-	  iGO   : IN  STD_LOGIC := '0';
-		oDIN  : OUT STD_LOGIC;
-		oCS_n : OUT STD_LOGIC;
-		oSCLK : OUT STD_LOGIC;
-		iDOUT : IN  STD_LOGIC;
-		iCH   : IN  STD_LOGIC_VECTOR(2 downto 0);
-		OutCkt: OUT STD_LOGIC_VECTOR(11 downto 0)); 
+port ( Clk   : IN  STD_LOGIC;
+       iGO   : IN  STD_LOGIC := '0';
+       oDIN  : OUT STD_LOGIC;
+       oCS_n : OUT STD_LOGIC;
+       oSCLK : OUT STD_LOGIC;
+       iDOUT : IN  STD_LOGIC;
+       iCH   : IN  STD_LOGIC_VECTOR(2 downto 0);
+       OutCkt: OUT STD_LOGIC_VECTOR(11 downto 0)); 
 end entity;
 
 architecture ADCModule_arc of ADCModule is 
 
 component SPICLK  is
-port(inclk0 : IN STD_LOGIC  := '0';
-	  c0		: OUT STD_LOGIC ;
-	  c1		: OUT STD_LOGIC );
+port( inclk0 : IN STD_LOGIC  := '0';  -- Main Clock = 50Mhz --
+      c0     : OUT STD_LOGIC ;        -- 0 deg. phase w.r.t main clock (2 MHz) --
+      c1     : OUT STD_LOGIC );       -- 180 deg. phase w.r.t main clock (2MHz) --
 end component;
 
 signal go_en: STD_LOGIC;
@@ -27,13 +27,13 @@ signal adc_data: STD_LOGIC_VECTOR(11 downto 0);
 signal iCLK, iCLK_n: STD_LOGIC;
 begin
 
-CLKPLL: SPICLK port map (Clk, iCLK, iCLK_n);
+CLKPLL: SPICLK port map (Clk, iCLK, iCLK_n);  -- Module requires a 2 MHz PLL --
 oCS_n  <=  not go_en;
 
 with go_en select
    oSCLK <= iCLK when '1',
             '1'  when '0',
-			   '1'  when others;		  
+	    '1'  when others;		  
 
 Start_ADC_proc: process(iGO)
   begin
@@ -44,7 +44,7 @@ end process Start_ADC_proc;
 
 counter1_proc: process(iCLK, go_en)
 begin
-	 if(go_en = '0') then cont	<=	0;
+	 if(go_en = '0') then cont <= 0;
 	 elsif (rising_edge(iCLK)) then 
 	   if (cont = 15) then cont <= 0;
 		else cont <= cont + 1;
@@ -62,17 +62,17 @@ channel_ADC_proc: process(iCLK_n, go_en)
 begin
 	  if(go_en = '0') then oDIN <=	'0';
 	  elsif(rising_edge(iCLK_n)) then
-			if (cont = 1) then oDIN	<=	iCH(2);
-			elsif (cont = 2) then oDIN	<=	iCH(1);
-			elsif (cont = 3) then oDIN	<=	iCH(0);
-			else oDIN <= '0';
-		   end if;
+		if (cont = 1) then oDIN	    <=	iCH(2);
+		elsif (cont = 2) then oDIN  <=	iCH(1);
+		elsif (cont = 3) then oDIN  <=	iCH(0);
+		else oDIN <= '0';
+		end if;
 	  end if;
 end process channel_ADC_proc;
 
 output_ADC_proc: process(iCLK, iCLK_n, go_en)
 begin
-    if(go_en = '0') then adc_data	<=	"000000000000";
+    if(go_en = '0') then adc_data <= "000000000000";
 	 elsif(rising_edge(iCLK)) then 
 		  if    (m_cont = 3)  then adc_data(11) <= iDOUT;
 		  elsif (m_cont = 4)  then adc_data(10) <= iDOUT;
