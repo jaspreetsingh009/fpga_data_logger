@@ -18,6 +18,6 @@ GUI Source Code: https://docs.google.com/file/d/0B8SkMvBLdkB4NHc3cWx4cFVaUG8
 
 for any queries or suggestions, feel free to contact me at jaspreetsingh009@gmail.com
 
-Update: I have developed a Web UI for this project (pic attached) to send/receive data via internet. I will add the codes for the same soon.
+Update: I have also designed a Web UI for this project (pic below) to send/receive data via internet. I will add the codes for the same soon.
 
 ![alt tag](http://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/t1.0-9/1966851_10202738339273294_1706428669_n.jpg)
